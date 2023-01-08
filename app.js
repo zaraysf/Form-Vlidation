@@ -1,27 +1,50 @@
-function validateFirstName(){
-
-var firstName=document.getElementById('firstName');
-var stringf = document.getElementById('firstName').value;
-if (firstName.value=="") {
-     alert("firstName name must be filled out");
-     return false;
-    }
-else if (document.getElementById('firstName').value.length > 20){
-        alert("firstName name cannot be more than 35 characters");
-        return false;
-    }
-    else if (/^[a-z][a-z '-.,]{0,20}$|^$/i.test( stringf )){
-
-    }
+function firstNameValidate(){
+  const regEx = /^[a-z][a-z '-.,]{0,20}$|^$/i;
+  const firstName = document.getElementById('firstName').value;
+if((firstName==""))
+ {
+   document.getElementById('error-firstname').innerHTML = "First name should not be empty";
+  // registerationform.firstName.focus();
+  // return(false);
+ }else if (firstName > 20){
+    document.getElementById('error-firstname').innerText = "The name should be less than 20 character!"
+      }
+  else if (regEx.test(firstName)){
+        document.getElementById('error-firstname').innerText = "Just alphabet can be acceptable"
+      }
+  else
+  {
+  return(true);
   }
+}
 
-const btnSubmit = document.getElementById(submit);
+function lastNameValidate(){
+  const regEx = /^[a-z][a-z '-.,]{0,20}$|^$/i;
+  const lastName = document.getElementById('lastName').value;
+if((lastName == ""))
+ {
+   document.getElementById('error-lastname').innerHTML = "Last name should not be empty";
+  // registerationform.firstName.focus();
+  // return(false);
+ }else if (lastName > 20){
+    document.getElementById('error-lastname').innerText = "The name should be less than 20 character!"
+      }
+  else if (regEx.test(lastName)){
+        document.getElementById('error-lastname').innerText = "Just alphabet can be acceptable"
+      }
+  else
+  {
+  return(true);
+  }
+}
+
+const btnSubmit = document.getElementById('submit');
+
 btnSubmit.addEventListener('click' , (e)=>{
-  alert('Sorry! you cannot check this checkbox because of the preventDefault.');
-  e.preventDefault();
-validateFirstName();
-console.log(validateFirstName());
+e.preventDefault();
+firstNameValidate();
+lastNameValidate();
+console.log(e.defaultPrevented());
 })
-
 
 
