@@ -27,6 +27,12 @@ input[type="radio"] + label , input[type="checkbox"] + label{
     margin-top: 0;
 
 }
+.error-firstname{
+    color: red;
+}
+.error-lastname{
+    color: red;
+}
 
 #submit{
     background-color:gray;
@@ -70,6 +76,4 @@ input[type="radio"] + label , input[type="checkbox"] + label{
 }
 
 
-.error-firstname{
-    color: red;
-}
+
