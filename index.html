@@ -17,34 +17,34 @@
     <div id="container">
 <!--label,  input (text, radio, checkbox, date, color),
    select(single, multi) , textarea, button-->
-      <form name="registerationform">
+      <form  action="login.html"  name="registerationform">
         <fieldset>
           <legend>Contact Form</legend>
 
           <div>
             <label for="firstname" class="label">FirstName : </label>
             <input type="text" name="firtName" id="firstName"  placeholder=""/>
-            <div id="error-firstname">
+            <div id="error-firstname" class="error">
             </div>
           </div>
 
           <div>
             <label for="lastname" class="label">LastName : </label>
-            <input type="" name="lastname" class="lname" id="lastName"/>
-            <div id="error-lastname"></div>
+            <input type="text" name="lastname" class="lname" id="lastName"/>
+            <div id="error-lastname" class="error"></div>
           </div>
       
 
           <div>
             <label for="phone" class="label">Phone Number : </label>
             <input type="text" name="phone" id="phone" />
-            <div id="error-phone"></div>
+            <div id="error-phone" class="error"></div>
           </div>
 
           <div>
             <label for="email" class="label">Email : </label>
             <input type="text" name="email" id="email" />
-            <div id="error-email"></div>
+            <div id="error-email" class="error"></div>
           </div>
 
           <div>
@@ -62,32 +62,36 @@
               <span class="orange"></span>
               <span class="green"></span>
             </div>
+
+            <div id="error-password" class="error"></div>
           </div>
 
           <div class="gender">
             <label for="gender" class="label">Gender : </label>
-            <input type="radio" name="gender" value="Male" id="radio1" />
+            <input type="radio" name="gender" value="Male" id="radio1"  />
             <label for="gender" class="label">Male </label>
             <input type="radio" name="gender" value="Female" id="radio2" />
             <label for="gender" class="label">Female </label>
-            <input type="radio" name="gender" value="They" id="radio3" />
+            <input type="radio" name="gender" value="They" id="radio3"  />
             <label for="gender" class="label">No Gender</label>
+            <div id="error-gender" class="error"></div>
           </div>
 
           <div class="skill">
             <label for="skill" class="label">Skills : </label>
-            <input type="checkbox" name="skill" value="HTML"/>
+            <input type="checkbox" name="skill" value="HTML" />
             <label for="skill" class="label">HTML </label>
             <input type="checkbox" name="skill" value="CSS" />
             <label for="skill" class="label">CSS </label>
             <input type="checkbox" name="skill" value="JavaScript" />
             <label for="skill" class="label">JavaScript </label>
             <input type="checkbox" name="skill" value="React" />
-            <label for="skill" class="label">React </label><br /><br />
+            <label for="skill" class="label">React </label>
+            <div id="error-skill"  class="error"></div>
           </div>
 
           <div class="agree-terms">
-            <input type="checkbox" name="terms" checked />
+            <input type="checkbox" name="terms" />
             <label for="terms" class="label">Agree with all the terms and conditions </label>
           </div>
 

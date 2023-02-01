@@ -75,5 +75,23 @@ input[type="radio"] + label , input[type="checkbox"] + label{
     }
 }
 
+.error{
+    color: red;
+}
 
 
+input[type="radio"]:checked{
+    /* background-color: yellow; */
+    /* margin: 15%; */
+    width: 30px;
+    height: 30px;
+    /* border: 2px solid red; */
+}
+
+div[class="error"]{
+
+}
+
+.error[id="error-password"]{
+    font-size: 20px;
+}
