@@ -1,8 +1,8 @@
 /////////////// First Name Validation 
 function firstNameValidate() {
   const regEx = /^[a-z][a-z '-.,]{0,20}$|^$/i;
-  const firstName = document.getElementById('firstName').value;
-  const firstNameBox = document.getElementById('firstName')
+  const firstNameBox = document.getElementById('firstName');
+  const firstName = firstNameBox.value;
   const errDiv = document.getElementById("error-firstname");
   errDiv.innerHTML = ""
   const err = [];
@@ -12,7 +12,7 @@ function firstNameValidate() {
   if (firstName.length > 20) err.push("Less 20 character is acceptable");
 
   if (err.length) {
-    errDiv.innerHTML = err.join("<br/>");
+    errDiv.innerHTML = err.join("<br>");
     firstNameBox.style.border = "2px solid red";
     return false
   }
@@ -92,10 +92,10 @@ function passwordValidate(passwordValue) {
   const err = [];
 
   if (passwordValue=="") {
-    err.push("The password is required!")
+    err.push("The password is requierd!")
   }
   if (passwordValue.length<8) {
-    err.push("The length must be more 8 characters")
+    err.push("The password must be more 8 characters")
   }
 
   return err
@@ -129,15 +129,6 @@ if (passwordErrors.length!=0) {
   password.style.border="2px solid green"
 }
 
-  // if (fnValid==false || lnValid==false) {
-
-  //   e.preventDefault();
-  // }
-  // else{
-
-  // }
-
-
   if (! (fnValid && lnValid  && phoneValid && emailValid)  ) {
 
       e.preventDefault();
@@ -146,11 +137,19 @@ if (passwordErrors.length!=0) {
 
 ///////////////// radio validation/////////////////////////
 
-const gender= document.querySelector("input[type='radio']:checked")
+const gender = document.querySelector("input[type='radio']:checked")
 if(gender==null){
   document.querySelector("#error-gender").innerText="Select a gender!"
 }else{
   document.querySelector("#error-gender").innerText=""
+}
+
+///////////////// checkbox validation/////////////////////////
+const skill = document.querySelector("input[type='checkbox']:checked")
+if(skill==null){
+  document.querySelector("#error-skill").innerText="Select at least one skill!"
+}else{
+  document.querySelector("#error-skill").innerText=""
 }
 
 
