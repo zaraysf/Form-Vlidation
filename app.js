@@ -87,8 +87,6 @@ function emailValidate() {
 }
 //////////////////// password 
 function passwordValidate(passwordValue) {
-
- 
   const err = [];
 
   if (passwordValue=="") {
@@ -97,12 +95,8 @@ function passwordValidate(passwordValue) {
   if (passwordValue.length<8) {
     err.push("The password must be more 8 characters")
   }
-
   return err
-
 }
-
-
 
 const btnSubmit = document.getElementById('submit');
 
@@ -111,14 +105,38 @@ btnSubmit.addEventListener('click', (e) => {
   const passwordValue = password.value;
   const errPasswordDiv = document.getElementById("error-password");
 
-
   const fnValid = firstNameValidate();
   const lnValid = lastNameValidate();
   const phoneValid = phoneValidate();
   const emailValid = emailValidate();
   const passwordErrors = passwordValidate(passwordValue);
 
-  errPasswordDiv.innerHTML = "" 
+  errPasswordDiv.innerHTML = "" ;
+
+
+// ////////////////// Password Visibility
+// const togglePassword = document.querySelector("#togglePassword");
+// const closeEye = document.querySelector("#closeEye");
+// const openEye = document.querySelector("#openEye");
+// let isPassVisible = false;
+
+//   togglePassword.addEventListener("click", ()=> {
+
+//     if (!isPassVisible) {
+//       //visible pass
+//       password.type = "text";
+//       closeEye.classList.add('hide');
+//       openEye.classList.remove('hide');
+//     } else {
+//       //invisible pass
+//       password.type = "password";
+//       closeEye.classList.remove('hide');
+//       openEye.classList.add('hide');
+//     }
+//     isPassVisible = !isPassVisible;
+// });
+
+
 if (passwordErrors.length!=0) {
   e.preventDefault();
   passwordErrors.forEach(item => {
@@ -128,9 +146,7 @@ if (passwordErrors.length!=0) {
 } else {
   password.style.border="2px solid green"
 }
-
   if (! (fnValid && lnValid  && phoneValid && emailValid)  ) {
-
       e.preventDefault();
     }
 
@@ -153,12 +169,34 @@ if(skill==null){
 }
 
 
-
-
-
-
 })
 
 
+////////////////// Password Visibility
+const togglePassword = document.querySelector("#togglePassword");
+const password = document.querySelector("#password");
+// const closeEye = document.querySelector("#closeEye");
+// const openEye = document.querySelector("#openEye");
+// let isPassVisible = false;
 
+//   togglePassword.addEventListener("click", ()=> {
 
+//     if (!isPassVisible) {
+//       //visible pass
+//       password.type = "text";
+//       closeEye.classList.add('hide');
+//       openEye.classList.remove('hide');
+//     } else {
+//       //invisible pass
+//       password.type = "password";
+//       closeEye.classList.remove('hide');
+//       openEye.classList.add('hide');
+//     }
+//     isPassVisible = !isPassVisible;
+// });
+
+eye.addEventListener("click", function(){
+  this.classList.toggle("fa-eye-slash")
+  const type = passwordInput.getAttribute("type") === "password" ? "text" : "password"
+  passwordInput.setAttribute("type", type)
+})

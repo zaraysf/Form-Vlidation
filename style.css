@@ -49,6 +49,9 @@ input[type="radio"] + label , input[type="checkbox"] + label{
     right: 217px;
     top: 24px;
 }
+.hide{
+    visibility: hidden;
+}
 
 .strengh span{
     display: inline-block;
@@ -88,4 +91,25 @@ input[type="checkbox"]:checked{
     width: 10px;
     height: 10px;
 }
+
+#password {  
+    background-image: url("https://img.icons8.com/material-sharp/20/000000/visible.png");
+    background-position: 97% center;
+    background-repeat: no-repeat;
+  }
+  #password.visible {
+    background-image: url("https://img.icons8.com/material-outlined/20/000000/invisible.png");
+  }
+
+#togglePassword {
+    display: none;
+  }
+  #togglePassword + label {
+    text-indent: -9999px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: -32px;
+    cursor: pointer;
+  }
 
