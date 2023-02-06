@@ -167,16 +167,36 @@ if(skill==null){
 }else{
   document.querySelector("#error-skill").innerText=""
 }
-
-
 })
 
 
 ////////////////// Password Visibility
 const togglePassword = document.querySelector("#togglePassword");
 const password = document.querySelector("#password");
-// const closeEye = document.querySelector("#closeEye");
-// const openEye = document.querySelector("#openEye");
+const closeEye = document.querySelector("#closeEye");
+const openEye = document.querySelector("#openEye");
+
+openEye.addEventListener("click", (e) => {
+
+  console.log(e)
+  // openEye.style.display = "none";
+  // closeEye.style.display = "block";
+
+  // password.type = "text";
+});
+
+// closeEye.addEventListener("click", () => {
+//   closeEye.style.display = "none";
+//   openEye.style.display = "block";
+
+//   password.type = "password";
+// });
+
+
+
+
+
+
 // let isPassVisible = false;
 
 //   togglePassword.addEventListener("click", ()=> {
@@ -195,8 +215,8 @@ const password = document.querySelector("#password");
 //     isPassVisible = !isPassVisible;
 // });
 
-eye.addEventListener("click", function(){
-  this.classList.toggle("fa-eye-slash")
-  const type = passwordInput.getAttribute("type") === "password" ? "text" : "password"
-  passwordInput.setAttribute("type", type)
-})
+// eye.addEventListener("click", function(){
+//   this.classList.toggle("fa-eye-slash")
+//   const type = passwordInput.getAttribute("type") === "password" ? "text" : "password"
+//   passwordInput.setAttribute("type", type)
+// })
