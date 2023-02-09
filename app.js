@@ -113,28 +113,112 @@ btnSubmit.addEventListener('click', (e) => {
 
   errPasswordDiv.innerHTML = "" ;
 
+////////////////// Password Visibility
+const togglePassword = document.querySelector("#togglePassword");
+const closeEye = document.querySelector("#closeEye");
+const openEye = document.querySelector("#openEye");
 
-// ////////////////// Password Visibility
-// const togglePassword = document.querySelector("#togglePassword");
-// const closeEye = document.querySelector("#closeEye");
-// const openEye = document.querySelector("#openEye");
-// let isPassVisible = false;
+// openEye.addEventListener("click", (e) => {
+//   openEye.style.display = "none";
+//   closeEye.style.display = "block";
 
-//   togglePassword.addEventListener("click", ()=> {
-
-//     if (!isPassVisible) {
-//       //visible pass
-//       password.type = "text";
-//       closeEye.classList.add('hide');
-//       openEye.classList.remove('hide');
-//     } else {
-//       //invisible pass
-//       password.type = "password";
-//       closeEye.classList.remove('hide');
-//       openEye.classList.add('hide');
-//     }
-//     isPassVisible = !isPassVisible;
+//   password.type = "text";
 // });
+
+
+/////////////////// How strong password is
+let passwordInput = document.querySelector('#password input[type="password"]');
+    let passwordStrength= document.getElementById('strengh');
+    let poor = document.querySelector('#strengh #gray');
+    let weak = document.querySelector('#strengh #red');
+    let strong = document.querySelector('#strengh #green');
+    let passwordInfo = document.getElementById('error-password');
+  
+    let poorRegExp = /[a-z]/;
+    let weakRegExp = /(?=.*?[0-9])/;;
+    let strongRegExp = /(?=.*?[#?!@$%^&*-])/;
+    let whitespaceRegExp = /^$|\s+/;
+    passwordInput.oninput= function(){
+   
+         let passwordValue= passwordInput.value;
+         let passwordLength= passwordValue.length;
+         let poorPassword= passwordValue.match(poorRegExp);
+         let weakPassword= passwordValue.match(weakRegExp);
+         let strongPassword= passwordValue.match(strongRegExp);
+         let whitespace= passwordValue.match(whitespaceRegExp);
+ if(passwordValue != ""){
+     passwordStrength.style.display = "block";
+     passwordStrength.style.display = "flex";
+     passwordInfo.style.display = "block";
+     passwordInfo.style.color = "black";
+     if(whitespace)
+     {
+      passwordInfo.textContent = "whitespaces are not allowed";
+     }else{
+     poorPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
+     weakPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
+     strongPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
+    }
+     
+   }else{
+     
+     passwordStrength.style.display = "none";
+     passwordInfo.style.display = "none";
+    
+   }
+ }
+function poorPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword){
+      if(passwordLength <= 3 && (poorPassword || weakPassword || strongPassword))
+        {
+       poor.classList.add("active");
+       passwordInfo.style.display = "block";
+       passwordInfo.style.color = "red";
+       passwordInfo.textContent = "Your password is too Poor";
+          
+        }
+}
+function weakPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword){
+   if(passwordLength>= 4 && poorPassword && (weakPassword || strongPassword))
+    {
+     weak.classList.add("active");
+     passwordInfo.textContent = "Your password is Weak";
+     passwordInfo.style.color = "orange";
+   
+   }else{
+     weak.classList.remove("active");
+     
+   }
+}
+function strongPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword){
+  if(passwordLength >= 6 && (poorPassword && weakPassword) && strongPassword)
+    {
+     poor.classList.add("active");
+     weak.classList.add("active");
+     strong.classList.add("active");
+     passwordInfo.textContent = "Your password is strong";
+     passwordInfo.style.color = "green";
+   }else{
+     strong.classList.remove("active");
+     
+   }
+}
+let showHide = document.querySelector('#passwordInput #showHide');
+ showHide.onclick = function(){
+      showHidePassword()
+}
+function showHidePassword(){
+  if(passwordInput.type == "password"){
+    passwordInput.type = "text";
+    showHide.textContent = "HIDE";
+    showHide.style.color = "green";
+  }else{
+    passwordInput.type = "password";
+    showHide.textContent = "SHOW";
+    showHide.style.color = "red";
+  }
+}
+
+
 
 
 if (passwordErrors.length!=0) {
@@ -168,55 +252,3 @@ if(skill==null){
   document.querySelector("#error-skill").innerText=""
 }
 })
-
-
-////////////////// Password Visibility
-const togglePassword = document.querySelector("#togglePassword");
-const password = document.querySelector("#password");
-const closeEye = document.querySelector("#closeEye");
-const openEye = document.querySelector("#openEye");
-
-openEye.addEventListener("click", (e) => {
-
-  console.log(e)
-  // openEye.style.display = "none";
-  // closeEye.style.display = "block";
-
-  // password.type = "text";
-});
-
-// closeEye.addEventListener("click", () => {
-//   closeEye.style.display = "none";
-//   openEye.style.display = "block";
-
-//   password.type = "password";
-// });
-
-
-
-
-
-
-// let isPassVisible = false;
-
-//   togglePassword.addEventListener("click", ()=> {
-
-//     if (!isPassVisible) {
-//       //visible pass
-//       password.type = "text";
-//       closeEye.classList.add('hide');
-//       openEye.classList.remove('hide');
-//     } else {
-//       //invisible pass
-//       password.type = "password";
-//       closeEye.classList.remove('hide');
-//       openEye.classList.add('hide');
-//     }
-//     isPassVisible = !isPassVisible;
-// });
-
-// eye.addEventListener("click", function(){
-//   this.classList.toggle("fa-eye-slash")
-//   const type = passwordInput.getAttribute("type") === "password" ? "text" : "password"
-//   passwordInput.setAttribute("type", type)
-// })
