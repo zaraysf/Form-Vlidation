@@ -85,155 +85,6 @@ function emailValidate() {
     return false
   }
 }
-//////////////////// password 
-function passwordValidate(passwordValue) {
-  const err = [];
-
-  if (passwordValue=="") {
-    err.push("The password is requierd!")
-  }
-  if (passwordValue.length<8) {
-    err.push("The password must be more 8 characters")
-  }
-  return err
-}
-
-const btnSubmit = document.getElementById('submit');
-
-btnSubmit.addEventListener('click', (e) => {
-  const password = document.getElementById('password');
-  const passwordValue = password.value;
-  const errPasswordDiv = document.getElementById("error-password");
-
-  const fnValid = firstNameValidate();
-  const lnValid = lastNameValidate();
-  const phoneValid = phoneValidate();
-  const emailValid = emailValidate();
-  const passwordErrors = passwordValidate(passwordValue);
-
-  errPasswordDiv.innerHTML = "" ;
-
-////////////////// Password Visibility
-const togglePassword = document.querySelector("#togglePassword");
-const closeEye = document.querySelector("#closeEye");
-const openEye = document.querySelector("#openEye");
-
-// openEye.addEventListener("click", (e) => {
-//   openEye.style.display = "none";
-//   closeEye.style.display = "block";
-
-//   password.type = "text";
-// });
-
-
-/////////////////// How strong password is
-let passwordInput = document.querySelector('#password input[type="password"]');
-    let passwordStrength= document.getElementById('strengh');
-    let poor = document.querySelector('#strengh #gray');
-    let weak = document.querySelector('#strengh #red');
-    let strong = document.querySelector('#strengh #green');
-    let passwordInfo = document.getElementById('error-password');
-  
-    let poorRegExp = /[a-z]/;
-    let weakRegExp = /(?=.*?[0-9])/;;
-    let strongRegExp = /(?=.*?[#?!@$%^&*-])/;
-    let whitespaceRegExp = /^$|\s+/;
-    passwordInput.oninput= function(){
-   
-         let passwordValue= passwordInput.value;
-         let passwordLength= passwordValue.length;
-         let poorPassword= passwordValue.match(poorRegExp);
-         let weakPassword= passwordValue.match(weakRegExp);
-         let strongPassword= passwordValue.match(strongRegExp);
-         let whitespace= passwordValue.match(whitespaceRegExp);
- if(passwordValue != ""){
-     passwordStrength.style.display = "block";
-     passwordStrength.style.display = "flex";
-     passwordInfo.style.display = "block";
-     passwordInfo.style.color = "black";
-     if(whitespace)
-     {
-      passwordInfo.textContent = "whitespaces are not allowed";
-     }else{
-     poorPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
-     weakPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
-     strongPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
-    }
-     
-   }else{
-     
-     passwordStrength.style.display = "none";
-     passwordInfo.style.display = "none";
-    
-   }
- }
-function poorPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword){
-      if(passwordLength <= 3 && (poorPassword || weakPassword || strongPassword))
-        {
-       poor.classList.add("active");
-       passwordInfo.style.display = "block";
-       passwordInfo.style.color = "red";
-       passwordInfo.textContent = "Your password is too Poor";
-          
-        }
-}
-function weakPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword){
-   if(passwordLength>= 4 && poorPassword && (weakPassword || strongPassword))
-    {
-     weak.classList.add("active");
-     passwordInfo.textContent = "Your password is Weak";
-     passwordInfo.style.color = "orange";
-   
-   }else{
-     weak.classList.remove("active");
-     
-   }
-}
-function strongPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword){
-  if(passwordLength >= 6 && (poorPassword && weakPassword) && strongPassword)
-    {
-     poor.classList.add("active");
-     weak.classList.add("active");
-     strong.classList.add("active");
-     passwordInfo.textContent = "Your password is strong";
-     passwordInfo.style.color = "green";
-   }else{
-     strong.classList.remove("active");
-     
-   }
-}
-let showHide = document.querySelector('#passwordInput #showHide');
- showHide.onclick = function(){
-      showHidePassword()
-}
-function showHidePassword(){
-  if(passwordInput.type == "password"){
-    passwordInput.type = "text";
-    showHide.textContent = "HIDE";
-    showHide.style.color = "green";
-  }else{
-    passwordInput.type = "password";
-    showHide.textContent = "SHOW";
-    showHide.style.color = "red";
-  }
-}
-
-
-
-
-if (passwordErrors.length!=0) {
-  e.preventDefault();
-  passwordErrors.forEach(item => {
-    errPasswordDiv.innerHTML += `<div>${item}</div>`;
-    password.style.border="2px solid red"
-  });
-} else {
-  password.style.border="2px solid green"
-}
-  if (! (fnValid && lnValid  && phoneValid && emailValid)  ) {
-      e.preventDefault();
-    }
-
 
 ///////////////// radio validation/////////////////////////
 
@@ -251,4 +102,104 @@ if(skill==null){
 }else{
   document.querySelector("#error-skill").innerText=""
 }
+
+
+/////////////////// How strong password is
+function checkPasswordStrength(password) {
+  // Initialize variables
+  const passwordValue = password.value;
+  const passwordCheckPoor = document.getElementById('gray');
+  const passwordCheckMedium = document.getElementById('red');
+  const passwordCheckStrong = document.getElementById('green');
+  var strength = 0;
+  var tips = "";
+
+  // Check password length
+  if (passwordValue.length < 8) {
+    tips += "Make the password longer. ";
+  } else {
+    strength += 1;
+  }
+
+  // Check for mixed case
+  if (passwordValue.match(/[a-z]/) && passwordValue.match(/[A-Z]/)) {
+    strength += 1;
+  } else {
+    tips += "Use both lowercase and uppercase letters. ";
+  }
+
+  // Check for numbers
+  if (passwordValue.match(/\d/)) {
+    strength += 1;
+  } else {
+    tips += "Include at least one number. ";
+  }
+
+  // Check for special characters
+  if (passwordValue.match(/[^a-zA-Z\d]/)) {
+    strength += 1;
+  } else {
+    tips += "Include at least one special character. ";
+  }
+
+  // Return results
+  if (strength < 2) {
+    return "Easy to guess. " + tips;
+    passwordCheckPoor.style.visibility = block;
+
+  } else if (strength === 2) {
+    return "Medium difficulty. " + tips;
+    passwordCheckMedium.style.visibility = block;
+  } else if (strength === 3) {
+    return "Difficult. " + tips;
+    passwordCheckStrong.style.visibility = block;
+  } else {
+    return "Extremely difficult. " + tips;
+  }
+}
+
+
+//////////////// password 
+// function passwordValidate(passwordValue) {
+//   const err = [];
+
+//   if (passwordValue=="") {
+//     err.push("The password is requierd!")
+//   }
+//   if (passwordValue.length<8) {
+//     err.push("The password must be more 8 characters")
+//   }
+//   return err
+// }
+
+
+
+const btnSubmit = document.getElementById('submit');
+
+btnSubmit.addEventListener('click', (e) => {
+  const password = document.getElementById('password');
+  const passwordValue = password.value;
+  const errPasswordDiv = document.getElementById("error-password");
+
+  const fnValid = firstNameValidate();
+  const lnValid = lastNameValidate();
+  const phoneValid = phoneValidate();
+  const emailValid = emailValidate();
+  errPasswordDiv.innerHTML = "" ;
+  const passwordErrors = checkPasswordStrength(passwordValue);
+
+if (passwordErrors.length!=0) {
+  e.preventDefault();
+  passwordErrors.forEach(item => {
+    errPasswordDiv.innerHTML += `<div>${item}</div>`;
+    password.style.border="2px solid red"
+  });
+} else {
+  password.style.border="2px solid green"
+}
+  if (! (fnValid && lnValid  && phoneValid && emailValid)  ) {
+      e.preventDefault();
+    }
+
+
 })

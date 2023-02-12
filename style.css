@@ -60,15 +60,19 @@ input[type="radio"] + label , input[type="checkbox"] + label{
 }
 .gray{
     background-color: gray;
+    visibility: hidden;
 }
 .orange{
     background-color: orange;
+    visibility: hidden;
 }
 .green{
     background-color: green;
+    visibility: hidden;
 }
 .red{
     background-color: red;
+    visibility: hidden;
 }
 
 @media screen and (min-width:430px) {
