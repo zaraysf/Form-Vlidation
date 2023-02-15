@@ -104,58 +104,50 @@ if(skill==null){
 }
 
 
-/////////////////// How strong password is
-function checkPasswordStrength(password) {
+/////////////////// Check Password Strength
+function checkPasswordStrength(passwordValue) {
   // Initialize variables
-  const passwordValue = password.value;
-  const passwordCheckPoor = document.getElementById('gray');
-  const passwordCheckMedium = document.getElementById('red');
-  const passwordCheckStrong = document.getElementById('green');
   var strength = 0;
-  var tips = "";
+  var tips = [];
 
   // Check password length
-  if (passwordValue.length < 8) {
-    tips += "Make the password longer. ";
-  } else {
-    strength += 1;
-  }
-
+  if ( passwordValue.length < 8 ) {
+    tips.push("Make the password longer. ");
+  } 
   // Check for mixed case
-  if (passwordValue.match(/[a-z]/) && passwordValue.match(/[A-Z]/)) {
-    strength += 1;
-  } else {
-    tips += "Use both lowercase and uppercase letters. ";
-  }
-
+  if ( !passwordValue.match(/[a-z]/) && passwordValue.match(/[A-Z]/) ) {
+    tips.push("Use both lowercase and uppercase letters. ");
+  } 
   // Check for numbers
-  if (passwordValue.match(/\d/)) {
-    strength += 1;
-  } else {
-    tips += "Include at least one number. ";
-  }
+  if ( !passwordValue.match(/\d/) ) {
+    tips.push("Include at least one number. ");
+  } 
 
   // Check for special characters
-  if (passwordValue.match(/[^a-zA-Z\d]/)) {
-    strength += 1;
-  } else {
-    tips += "Include at least one special character. ";
+  if (! passwordValue.match(/[^a-zA-Z\d]/) ) {
+    tips.push("Include at least one special character. ");
+  } 
+  else {
+    return tips
   }
 
-  // Return results
-  if (strength < 2) {
-    return "Easy to guess. " + tips;
-    passwordCheckPoor.style.visibility = block;
+  // const passwordCheckPoor = document.getElementById('gray');
+  // const passwordCheckMedium = document.getElementById('red');
+  // const passwordCheckStrong = document.getElementById('green');
+  // // Return results
+  // if (strength < 2) {
+  //   return "Easy to guess. " + tips;
+  //   passwordCheckPoor.style.visibility = block;
 
-  } else if (strength === 2) {
-    return "Medium difficulty. " + tips;
-    passwordCheckMedium.style.visibility = block;
-  } else if (strength === 3) {
-    return "Difficult. " + tips;
-    passwordCheckStrong.style.visibility = block;
-  } else {
-    return "Extremely difficult. " + tips;
-  }
+  // } else if (strength === 2) {
+  //   return "Medium difficulty. " + tips;
+  //   passwordCheckMedium.style.visibility = block;
+  // } else if (strength === 3) {
+  //   return "Difficult. " + tips;
+  //   passwordCheckStrong.style.visibility = block;
+  // } else {
+  //   return "Extremely difficult. " + tips;
+  // }
 }
 
 
@@ -188,7 +180,7 @@ btnSubmit.addEventListener('click', (e) => {
   errPasswordDiv.innerHTML = "" ;
   const passwordErrors = checkPasswordStrength(passwordValue);
 
-if (passwordErrors.length!=0) {
+if (passwordErrors.length !== 0) {
   e.preventDefault();
   passwordErrors.forEach(item => {
     errPasswordDiv.innerHTML += `<div>${item}</div>`;
@@ -197,7 +189,7 @@ if (passwordErrors.length!=0) {
 } else {
   password.style.border="2px solid green"
 }
-  if (! (fnValid && lnValid  && phoneValid && emailValid)  ) {
+  if (! (fnValid && lnValid  && phoneValid && emailValid && passwordErrors)  ) {
       e.preventDefault();
     }
 
