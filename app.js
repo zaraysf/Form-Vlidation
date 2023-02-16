@@ -105,66 +105,60 @@ if(skill==null){
 
 
 /////////////////// Check Password Strength
-function checkPasswordStrength(passwordValue) {
-  // Initialize variables
-  var strength = 0;
-  var tips = [];
+  
+  let timeout;
+  let strengthBadge = document.getElementById('strengh');
+  let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})');
+  let mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))');
 
-  // Check password length
+  function StrengthChecker(pass) {
+    if(strongPassword.test(pass)){
+        strengthBadge.style.backgroundColor = "green";
+        strengthBadge.textContent = 'Strong';
+    } else if(mediumPassword.test(pass)) {
+        strengthBadge.style.backgroundColor = 'blue';
+        strengthBadge.textContent = 'Medium';
+    } else {
+        strengthBadge.style.backgroundColor = 'red';
+        strengthBadge.textContent = 'Weak';
+    }
+}
+
+password.addEventListener("input", () => {
+  strengthBadge.style.display = 'block';
+  clearTimeout(timeout);
+  timeout = setTimeout(() => StrengthChecker(password.value), 500);
+  if(password.value.length !== 0) {
+      strengthBadge.style.display != 'block';
+  } else {
+      strengthBadge.style.display = 'none';
+  }
+});
+
+//////////////// password 
+function passwordValidate(passwordValue) {
+  const err = [];
+
+  if (passwordValue=="") {
+    err.push("The password is requierd!")
+  }
   if ( passwordValue.length < 8 ) {
-    tips.push("Make the password longer. ");
+    err.push("Make the password longer. ");
   } 
   // Check for mixed case
   if ( !passwordValue.match(/[a-z]/) && passwordValue.match(/[A-Z]/) ) {
-    tips.push("Use both lowercase and uppercase letters. ");
+    err.push("Use both lowercase and uppercase letters. ");
   } 
   // Check for numbers
   if ( !passwordValue.match(/\d/) ) {
-    tips.push("Include at least one number. ");
+    err.push("Include at least one number. ");
   } 
-
   // Check for special characters
   if (! passwordValue.match(/[^a-zA-Z\d]/) ) {
-    tips.push("Include at least one special character. ");
+    err.push("Include at least one special character. ");
   } 
-  else {
-    return tips
-  }
-
-  // const passwordCheckPoor = document.getElementById('gray');
-  // const passwordCheckMedium = document.getElementById('red');
-  // const passwordCheckStrong = document.getElementById('green');
-  // // Return results
-  // if (strength < 2) {
-  //   return "Easy to guess. " + tips;
-  //   passwordCheckPoor.style.visibility = block;
-
-  // } else if (strength === 2) {
-  //   return "Medium difficulty. " + tips;
-  //   passwordCheckMedium.style.visibility = block;
-  // } else if (strength === 3) {
-  //   return "Difficult. " + tips;
-  //   passwordCheckStrong.style.visibility = block;
-  // } else {
-  //   return "Extremely difficult. " + tips;
-  // }
+  return err
 }
-
-
-//////////////// password 
-// function passwordValidate(passwordValue) {
-//   const err = [];
-
-//   if (passwordValue=="") {
-//     err.push("The password is requierd!")
-//   }
-//   if (passwordValue.length<8) {
-//     err.push("The password must be more 8 characters")
-//   }
-//   return err
-// }
-
-
 
 const btnSubmit = document.getElementById('submit');
 
@@ -178,7 +172,7 @@ btnSubmit.addEventListener('click', (e) => {
   const phoneValid = phoneValidate();
   const emailValid = emailValidate();
   errPasswordDiv.innerHTML = "" ;
-  const passwordErrors = checkPasswordStrength(passwordValue);
+  const passwordErrors = passwordValidate(passwordValue);
 
 if (passwordErrors.length !== 0) {
   e.preventDefault();
