@@ -87,43 +87,54 @@ function emailValidate() {
 }
 
 ///////////////// radio validation/////////////////////////
-
-const gender = document.querySelector("input[type='radio']:checked")
-if(gender==null){
-  document.querySelector("#error-gender").innerText="Select a gender!"
-}else{
-  document.querySelector("#error-gender").innerText=""
+function radio (){
+  const gender = document.querySelector("input[type='radio']:checked")
+  if(gender != null){
+    document.querySelector("#error-gender").innerText=""
+  }else{
+    document.querySelector("#error-gender").innerText="Select a gender!"
+  }
 }
 
 ///////////////// checkbox validation/////////////////////////
-const skill = document.querySelector("input[type='checkbox']:checked")
-if(skill==null){
-  document.querySelector("#error-skill").innerText="Select at least one skill!"
-}else{
-  document.querySelector("#error-skill").innerText=""
+function checkBox (){
+  const skill = document.querySelector("input[type='checkbox']:checked")
+  if(skill == null){
+    document.querySelector("#error-skill").innerText="Select at least one skill!"
+  }else{
+    document.querySelector("#error-skill").innerText=""
+  }
 }
 
+function agree(){
+  const agree = document.querySelector(".agree-terms")
+if(agree == null){
+  document.querySelector("#error-gender").innerText="Select Agree please!"
+}else{
+  document.querySelector("#error-gender").innerText=""
+}
+}
 
 /////////////////// Check Password Strength
   
   let timeout;
-  let strengthBadge = document.getElementById('strengh');
-  let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})');
-  let mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))');
+  let strengthBadge = document.querySelector('.strengh');
+  let strongPassword = new RegExp('/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/');
+  let weakPassword = new RegExp('((?=.*[a-z])(?=.{8,}))');
 
   function StrengthChecker(pass) {
     if(strongPassword.test(pass)){
         strengthBadge.style.backgroundColor = "green";
-        strengthBadge.textContent = 'Strong';
-    } else if(mediumPassword.test(pass)) {
+     
+    }if(weakPassword.test(pass)) {
         strengthBadge.style.backgroundColor = 'blue';
-        strengthBadge.textContent = 'Medium';
+        
     } else {
         strengthBadge.style.backgroundColor = 'red';
-        strengthBadge.textContent = 'Weak';
+      
     }
 }
-
+// ((?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|
 password.addEventListener("input", () => {
   strengthBadge.style.display = 'block';
   clearTimeout(timeout);
@@ -160,6 +171,8 @@ function passwordValidate(passwordValue) {
   return err
 }
 
+
+
 const btnSubmit = document.getElementById('submit');
 
 btnSubmit.addEventListener('click', (e) => {
@@ -171,6 +184,10 @@ btnSubmit.addEventListener('click', (e) => {
   const lnValid = lastNameValidate();
   const phoneValid = phoneValidate();
   const emailValid = emailValidate();
+  const radioValid  = radio();
+  const CheckBoxValid = checkBox();
+  const agreeValid = agree();
+
   errPasswordDiv.innerHTML = "" ;
   const passwordErrors = passwordValidate(passwordValue);
 
@@ -183,7 +200,7 @@ if (passwordErrors.length !== 0) {
 } else {
   password.style.border="2px solid green"
 }
-  if (! (fnValid && lnValid  && phoneValid && emailValid && passwordErrors)  ) {
+  if (! (fnValid && lnValid  && phoneValid && emailValid && passwordErrors && radioValid && CheckBoxValid && agreeValid)  ) {
       e.preventDefault();
     }
 
